@@ -93,10 +93,27 @@ void sejtek ( palya *p, cells *q) {
     }
 }
 
-/*void test () {
-    int i;
-    for (i=0; )
-}*/
+void die ( palya *p, cells *q) {
+
+}
+
+void start( palya *p, cells *q) {
+
+}
+
+void test ( palya *p, cells *q) {
+    int i, j, k, l, db;
+    for(i=1; i<(p->meret.y - 1) ; i++) {
+        for(j=1; j<(p->meret.x - 1) ; j++) {
+            db= 0;
+
+        }
+    }
+}
+
+void felsz_cella(cells *p) {
+    free(p->pointer);
+}
 
 void felsz(palya *p) {
     int i;
