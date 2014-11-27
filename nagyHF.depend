@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1416476687 source:c:\users\dani\google drive\egyetem\prog\nagyhf\nagyhf\main.c
+	<stdio.h>
+	<stdlib.h>
+
+1417082910 source:c:\users\dani\documents\github\prognhf\main.c
+	<stdio.h>
+	<stdlib.h>
+

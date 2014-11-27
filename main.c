@@ -1,6 +1,15 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+// menüt vezérlõ enum
+typedef enum menu_item {
+    meret,
+    kezdo,
+    betolt,
+    start,
+    kilepes
+} menu_item;
+
 // elemek koordinátái
 typedef struct koord {
     int x,y;
@@ -11,20 +20,17 @@ typedef struct terulet {
     int x, y;
 } terulet;
 
-// menüt vezérlõ enum
-typedef enum menu_item {
-    meret,
-    kezdo,
-    betolt,
-    start,
-    kilepes
-} menu_item;
 
 // a terület alapján létrehoz egy kétdimenziós dinamikus tömböt
 typedef struct palya {
     terulet meret;
     int **palya;
 } palya;
+
+typedef struct cells {
+    int meret;
+    koord *pointer;
+} cells;
 
 // lefoglalja a pálya területét, és visszatér egy pointerrel
 void foglal ( palya *p) {
@@ -46,18 +52,47 @@ void nullaz ( palya *p ) {
     }
 }
 
+//felhasználótól fogad koordinátákat
 void megad (palya *p) {
-    int i;
-    koord r;
-    printf("Irja be a kivant koordinatakat enterekkel elvalasztva.(kilepeshez adjon meg koordinataknak x-et)");
-    while(r.x != 'x' && r.y != 'x') {
-        printf("x:");
-        scanf("%d\n", r.x);
-        printf("y:");
-        scanf("%d\n", r.y);
-        p->palya[r.y][r.x] = 1;
+    int x, y;
+    printf("Irja be a kivant koordinatakat enterekkel elvalasztva.\n Megszakitas a (0;0) koordinataval\n");
+    while(x != 0 ) {
+        printf("x, y:");
+        scanf("%d\n%d", &x, &y);
+        if (x != 0 && y != 0) {
+            p->palya[y-1][x-1] = 1;
+        }
+        printf("--- megadva ---");
     }
 }
+
+void sejtek ( palya *p, cells *q) {
+    int i, j, k=0, n=0;
+    koord *uj;
+    for(i=0; i<p->meret.y; i++) {
+        for(j=0; j<p->meret.x; j++) {
+            if (p->palya[i][j] == 1) {
+                n++;
+            }
+        }
+    }
+    q->meret = n;
+    uj = (koord*) malloc(n*sizeof(koord));
+    for(i=0; i<p->meret.y; i++) {
+        for(j=0; j<p->meret.x; j++) {
+            if (p->palya[i][j] == 1) {
+                uj[k].x = j;
+                uj[k].y = i;
+                k++;
+            }
+        }
+    }
+    q->pointer = uj;
+    for(i=0; i<n ; i++) {
+        printf("(%d;%d)\n", q->pointer[i].x, q->pointer[i].y);
+    }
+}
+
 /*void test () {
     int i;
     for (i=0; )
@@ -72,6 +107,7 @@ void felsz(palya *p) {
 }
 
 void menu( palya *p ) {
+    int i, j;
     menu_item r;
     terulet jatekter;
     printf("--- MENU ---\n"
@@ -80,20 +116,35 @@ void menu( palya *p ) {
                 "2 - Kezdo allapot betoltese fajlbol\n"
                 "3 - Szimulacio indítasa...\n"
                 "4 - Kilepes...\n");
-    scanf("%d\n", &r);
-    while (r != 4 ) {
+    scanf("%d", &r);
+    while (r != kilepes ) {
         switch (r) {
         case meret :
             printf("Mekkora legyen a jatekter?\n");
             scanf("%d\n%d", &jatekter.x, &jatekter.y);
             p->meret.x = jatekter.x;
             p->meret.y = jatekter.y;
-            foglal(&p);
-            nullaz(&p);
+            printf("----- x: %d", p->meret.x);
+            foglal(p);
+            nullaz(p);
+            printf("jatekter lefoglalva es nullazva\n");
+            for(i=0; i<p->meret.y; i++) {
+                for(j=0; j<p->meret.x; j++) {
+                    printf("%d", p->palya[i][j]);
+                }
+                printf("\n");
+            }
             break;
         case kezdo :
             printf("A kezdo pontok elhelyezese:");
-            megad(&p);
+            megad(p);
+            printf("Kezdoallapot:\n");
+            for(i=0; i < p->meret.y; i++) {
+                for (j=0; j < p->meret.x; j++) {
+                    printf("%d", p->palya[i][j] );
+                }
+                printf("\n");
+            }
             break;
         case betolt:
             printf("Fajlbol betoltom az altalam megadott alapallapotot.");
