@@ -106,7 +106,7 @@ void felsz(palya *p) {
     free(p->palya);
 }
 
-void menu( palya *p ) {
+void menu( palya *p, cells *q ) {
     int i, j;
     menu_item r;
     terulet jatekter;
@@ -145,6 +145,7 @@ void menu( palya *p ) {
                 }
                 printf("\n");
             }
+            sejtek(p, q);
             break;
         case betolt:
             printf("Fajlbol betoltom az altalam megadott alapallapotot.");
@@ -168,8 +169,9 @@ int main()
     int i, j;
     terulet jatekter;
     palya eletter;
+    cells sejt;
 
-    menu(&eletter);
+    menu(&eletter, &sejt);
     for (i=0; i<eletter.meret.y; i++) {
         for (j=0; j<eletter.meret.x; j++) {
             printf(" %d ", eletter.palya[i][j]);
