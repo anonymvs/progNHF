@@ -28,6 +28,7 @@ typedef struct palya {
 } palya;
 
 typedef struct cells {
+    int die; //két állás 1 meghal 0 él
     int meret;
     koord *pointer;
 } cells;
@@ -103,10 +104,11 @@ void start( palya *p, cells *q) {
 
 void test ( palya *p, cells *q) {
     int i, j, k, l, db;
-    for(i=1; i<(p->meret.y - 1) ; i++) {
-        for(j=1; j<(p->meret.x - 1) ; j++) {
-            db= 0;
-
+    for (i=0; i<q->meret; i++) {
+        for(j= -1; j<1; j++) {
+            for (k= -1; k<1; k++) {
+                if (p->palya[(q->pointer.y)-j][(q->pointer.x)-k]
+            }
         }
     }
 }
