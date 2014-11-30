@@ -15,20 +15,14 @@ typedef struct koord {
     int x,y;
 } koord ;
 
-// struktúra ami megadja a játéktér kiterjedését x, és y koordinátákban amelyek jelenleg "sor" és "oszlop" névvel vannak ellátva
-typedef struct terulet {
-    int x, y;
-} terulet;
-
-
 // a terület alapján létrehoz egy kétdimenziós dinamikus tömböt
 typedef struct palya {
-    terulet meret;
+    koord meret;
     int **palya;
 } palya;
 
 typedef struct cells {
-    int die; //két állás 1 meghal 0 él
+    int state; //két állás 1 meghal 0 él
     int meret;
     koord *pointer;
 } cells;
@@ -93,24 +87,24 @@ void sejtek ( palya *p, cells *q) {
         printf("(%d;%d)\n", q->pointer[i].x, q->pointer[i].y);
     }
 }
-
+/*
 void die ( palya *p, cells *q) {
-
+    return 0;
 }
 
 void start( palya *p, cells *q) {
-
+    return 0;
 }
-
-void test ( palya *p, cells *q) {
-    int i, j, k, l, db;
-    for (i=0; i<q->meret; i++) {
-        for(j= -1; j<1; j++) {
-            for (k= -1; k<1; k++) {
-                if (p->palya[(q->pointer.y)-j][(q->pointer.x)-k]
+*/
+int test ( palya *p, cells *q, int i) {
+    int j, k, db=0;
+    for(j= -1; j<=1; j++) {
+        for (k= -1; k<=1; k++) {
+            if (p->palya[(q->pointer[i].y)+j][(q->pointer[i].x)+k] == 1)
+                db++;
             }
         }
-    }
+    return (db-1);
 }
 
 void felsz_cella(cells *p) {
@@ -128,7 +122,7 @@ void felsz(palya *p) {
 void menu( palya *p, cells *q ) {
     int i, j;
     menu_item r;
-    terulet jatekter;
+    koord jatekter;
     printf("--- MENU ---\n"
                 "0 - Jatekter meretenek megadasa\n"
                 "1 - Kezdo koordinatak megadasa\n"
@@ -165,6 +159,10 @@ void menu( palya *p, cells *q ) {
                 printf("\n");
             }
             sejtek(p, q);
+            for (i=0; i<q->meret; i++) {
+                printf("(%d;%d) -- ", q->pointer[i].x, q->pointer[i].y);
+                printf("db: %d\n", test(p, q, i));
+            }
             break;
         case betolt:
             printf("Fajlbol betoltom az altalam megadott alapallapotot.");
@@ -186,7 +184,7 @@ void menu( palya *p, cells *q ) {
 int main()
 {
     int i, j;
-    terulet jatekter;
+    koord jatekter;
     palya eletter;
     cells sejt;
 
