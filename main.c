@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 // menüt vezérlõ enum
 typedef enum menu_item {
     meret,
@@ -52,12 +53,16 @@ void megad (palya *p) {
     int x, y;
     printf("Irja be a kivant koordinatakat enterekkel elvalasztva.\n Megszakitas a (0;0) koordinataval\n");
     while(x != 0 ) {
-        printf("x, y:");
+        printf("x, y:\n");
         scanf("%d\n%d", &x, &y);
         if (x != 0 && y != 0) {
-            p->palya[y-1][x-1] = 1;
+            if (x == p->meret.y || y == p->meret.x || x == 1 || y == 1) {
+                p->palya[y-1][x-1] = 0;
+            } else {
+                p->palya[y-1][x-1] = 1;
+            }
         }
-        printf("--- megadva ---");
+        printf("--- megadva ---\n");
     }
 }
 
@@ -135,8 +140,8 @@ void menu( palya *p, cells *q ) {
         case meret :
             printf("Mekkora legyen a jatekter?\n");
             scanf("%d\n%d", &jatekter.x, &jatekter.y);
-            p->meret.x = jatekter.x;
-            p->meret.y = jatekter.y;
+            p->meret.x = jatekter.x+1;
+            p->meret.y = jatekter.y+1;
             printf("----- x: %d", p->meret.x);
             foglal(p);
             nullaz(p);
