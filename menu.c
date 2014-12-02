@@ -10,7 +10,7 @@ void menu( palya *p, cells *q ) {
                 "0 - Jatekter meretenek megadasa\n"
                 "1 - Kezdo koordinatak megadasa\n"
                 "2 - Kezdo allapot betoltese fajlbol\n"
-                "3 - Szimulacio indítasa...\n"
+                "3 - Szimulacio inditasa...\n"
                 "4 - Kilepes...\n");
     scanf("%d", &r);
     while (r != kilepes ) {
@@ -44,14 +44,23 @@ void menu( palya *p, cells *q ) {
             sejtek(p, q);
             for (i=0; i<q->meret; i++) {
                 printf("(%d;%d) -- ", q->pointer[i].x, q->pointer[i].y);
-                printf("db: %d\n", test(p, q, i));
+                printf("db: %d\n", test_death(p, q, i));
             }
             break;
         case betolt:
             printf("Fajlbol betoltom az altalam megadott alapallapotot.");
             break;
         case start :
-            printf("Indítás...");
+            printf("Inditas...\n");
+            round(p, q);
+            for(i=0; i < p->meret.y; i++) {
+                for (j=0; j < p->meret.x; j++) {
+                    printf("%d", p->palya[i][j] );
+            }
+            printf("\n");
+        }
+        printf("\n");
+            felsz(p);
             break;
         }
         printf("Hogyan tovabb?\n"

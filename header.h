@@ -13,7 +13,7 @@ typedef enum menu_item {
 
 // elemek koordinátái
 typedef struct koord {
-    int x,y;
+    int x, y, state;
 } koord ;
 
 // a terület alapján létrehoz egy kétdimenziós dinamikus tömböt
@@ -23,7 +23,6 @@ typedef struct palya {
 } palya;
 
 typedef struct cells {
-    int state; //két állás 1 meghal 0 él
     int meret;
     koord *pointer;
 } cells;
@@ -33,9 +32,15 @@ void foglal ( palya *p);
 void megad (palya *p);
 void sejtek ( palya *p, cells *q);
 void die ( palya *p, cells *q);
-int test ( palya *p, cells *q, int i);
+int test_death ( palya *p, cells *q, int i);
+int test_born ( palya *p, int i, int j);
 void felsz_cella(cells *p);
 void felsz(palya *p);
+void round( palya *p, cells *q);
+void state ( palya *p, cells *q);
+void verdun (palya *p, cells *q, int n);
+int db (palya *p);
+
 
 void menu( palya *p, cells *q );
 

@@ -5,7 +5,6 @@
 int main()
 {
     int i, j;
-    koord jatekter;
     palya eletter;
     cells sejt;
 
@@ -18,5 +17,6 @@ int main()
     }
 
     felsz(&eletter);
+
     return 0;
 }

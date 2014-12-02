@@ -29,10 +29,12 @@ void megad (palya *p) {
         printf("x, y:\n");
         scanf("%d\n%d", &x, &y);
         if (x != 0 && y != 0) {
-            if (x == p->meret.y || y == p->meret.x || x == 1 || y == 1) {
-                p->palya[y-1][x-1] = 0;
-            } else {
-                p->palya[y-1][x-1] = 1;
+            if (x <= p->meret.y || y <= p->meret.x) {
+                if (x == p->meret.y || y == p->meret.x || x == 1 || y == 1) {
+                    p->palya[y-1][x-1] = 0;
+                } else {
+                    p->palya[y-1][x-1] = 1;
+                }
             }
         }
         printf("--- megadva ---\n");
@@ -56,25 +58,83 @@ void sejtek ( palya *p, cells *q) {
             if (p->palya[i][j] == 1) {
                 uj[k].x = j;
                 uj[k].y = i;
+                uj[k].state = 0;
                 k++;
             }
         }
     }
     q->pointer = uj;
-    for(i=0; i<n ; i++) {
-        printf("(%d;%d)\n", q->pointer[i].x, q->pointer[i].y);
-    }
-}
-/*
-void die ( palya *p, cells *q) {
-    return 0;
+    //for(i=0; i<n ; i++) {
+    //    printf("(%d;%d)\n", q->pointer[i].x, q->pointer[i].y);
+    //}
 }
 
-void start( palya *p, cells *q) {
-    return 0;
+void state ( palya *p, cells *q) {
+    int i;
+    for(i=0; i<q->meret; i++) {
+        if (test_death(p, q, i) < 2 || test_death(p, q, i) > 3) {
+            q->pointer[i].state = 1;
+        }
+    }
 }
-*/
-int test ( palya *p, cells *q, int i) {
+
+void round( palya *p, cells *q) {
+    int i, j, n, before, ism=0;
+    before = db(p);
+    sejtek(p, q);
+    state(p, q);
+    for(i=1; i < p->meret.y-1; i++) {
+        for(j=1; j < p->meret.x-1; j++) {
+            if (test_born(p, i, j) == 3){
+                p->palya[i][j]= 1;
+            }
+        }
+    }
+    for (n=0; n<q->meret; n++) {
+        verdun(p, q, n);
+    }
+    felsz_cella(q);
+    //system("cls");
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            printf("%d", p->palya[i][j] );
+        }
+        printf("\n");
+    }
+    printf("\n");
+    if(db(p) == 0) {
+        printf("\n --- LEFUTOTT--- \n");
+    } else {
+        if (before == db(p)) {
+            ism++;
+            printf("%d", ism);
+            if (ism > 10)
+                printf("\n --- LEFUTOTT --- \n");
+            else
+                round(p, q);
+        } else {
+            round(p, q);
+        }
+    }
+}
+
+int db (palya *p) {
+    int i, j, db=0;
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            if(p->palya[i][j] == 1)
+                db++;
+        }
+    }
+    return db;
+}
+
+void verdun (palya *p, cells *q, int n) {
+    if (q->pointer[n].state == 1)
+        p->palya[q->pointer[n].y][q->pointer[n].x] = 0;
+}
+
+int test_death ( palya *p, cells *q, int i) {
     int j, k, db=0;
     for(j= -1; j<=1; j++) {
         for (k= -1; k<=1; k++) {
@@ -85,14 +145,15 @@ int test ( palya *p, cells *q, int i) {
     return (db-1);
 }
 
-void felsz_cella(cells *p) {
-    free(p->pointer);
-}
-
-void felsz(palya *p) {
-    int i;
-    for (i=0; i < p->meret.y; i++) {
-        free(p->palya[i]);
+int test_born( palya *p, int i, int j) {
+    int db=0, a, b;
+    if ( p->palya[i][j] == 0 ) {
+        for(a= -1; a<=1; a++) {
+            for (b= -1; b<=1; b++) {
+                if (p->palya[i+a][j+b] == 1)
+                    db++;
+            }
+        }
     }
-    free(p->palya);
+    return db;
 }
