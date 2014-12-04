@@ -1,6 +1,7 @@
 #ifndef HEADER_H_INCLUDED
 #define HEADER_H_INCLUDED
 
+extern int ism;
 
 // menüt vezérlõ enum
 typedef enum menu_item {
@@ -40,6 +41,7 @@ void round( palya *p, cells *q);
 void state ( palya *p, cells *q);
 void verdun (palya *p, cells *q, int n);
 int db (palya *p);
+void leptet(palya *p, cells *q);
 
 
 void menu( palya *p, cells *q );

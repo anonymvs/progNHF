@@ -118,6 +118,55 @@ void round( palya *p, cells *q) {
     }
 }
 
+void leptet( palya *p, cells *q) {
+    int i, j, n, before;
+    int ism=0;
+    char c;
+    before = db(p);
+    sejtek(p, q);
+    state(p, q);
+    for(i=1; i < p->meret.y-1; i++) {
+        for(j=1; j < p->meret.x-1; j++) {
+            if (test_born(p, i, j) == 3){
+                p->palya[i][j]= 1;
+            }
+        }
+    }
+    for (n=0; n<q->meret; n++) {
+        verdun(p, q, n);
+    }
+    felsz_cella(q);
+    //system("cls");
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            printf("%d", p->palya[i][j] );
+        }
+        printf("\n");
+    }
+    printf("\n");
+    if(db(p) == 0) {
+        printf("\n --- LEFUTOTT--- \n");
+    } else {
+        if (before == db(p)) {
+            ism++;
+            //printf("\n%d\n", ism);
+            if (ism > 10) {
+                printf("\n --- LEFUTOTT --- \n");
+            } else {
+                scanf("%c", &c);
+                    if (c != 0) {
+                        round(p, q);
+                    }
+            }
+        } else {
+            scanf("%c", &c);
+            if (c != 0) {
+                round(p, q);
+            }
+        }
+    }
+}
+
 int db (palya *p) {
     int i, j, db=0;
     for(i=0; i < p->meret.y; i++) {

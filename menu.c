@@ -3,7 +3,7 @@
 #include "header.h"
 
 void menu( palya *p, cells *q ) {
-    int i, j;
+    int i, j, d;
     menu_item r;
     koord jatekter;
     printf("--- MENU ---\n"
@@ -51,8 +51,12 @@ void menu( palya *p, cells *q ) {
             printf("Fajlbol betoltom az altalam megadott alapallapotot.");
             break;
         case start :
-            printf("Inditas...\n");
-            round(p, q);
+            printf("Automatikus lefutas: 0\nLeptetes: 1\n");
+            scanf("%d\n", &d);
+            if (d == 0)
+                round(p, q);
+            else
+                leptet(p, q);
             for(i=0; i < p->meret.y; i++) {
                 for (j=0; j < p->meret.x; j++) {
                     printf("%d", p->palya[i][j] );
@@ -67,7 +71,7 @@ void menu( palya *p, cells *q ) {
                    "0 - Jatekter meretenek megadasa\n"
                    "1 - Kezdo koordinatak megadasa\n"
                    "2 - Kezdo allapot betoltese fajlbol\n"
-                   "3 - Szimulacio indítasa...\n"
+                   "3 - Szimulacio inditasa...\n"
                    "4 - Kilepes...\n");
         scanf("%d", &r);
     }
