@@ -78,11 +78,27 @@ void state ( palya *p, cells *q) {
     }
 }
 
-void round( palya *p, cells *q) {
-    int i, j, n, before, ism=0;
+void round( palya *p, cells *q, int ism, int osszegint) {
+    int i, j, n, before, k;
     before = db(p);
+    if (osszeg(p) != osszegint) {
+        for(i=0; i < p->meret.y; i++) {
+            for (j=0; j < p->meret.x; j++) {
+                printf("%d", p->palya[i][j] );
+            }
+            printf("\n");
+        }
+    }
+    printf("\n");
     sejtek(p, q);
     state(p, q);
+    /*
+    for (i=0; i<q->meret; i++) {
+        printf("(%d;%d) -- ", q->pointer[i].x, q->pointer[i].y);
+        printf("db: %d -- ", test_death(p, q, i));
+        printf("state: %d\n", q->pointer[i].state);
+    }
+    */
     for(i=1; i < p->meret.y-1; i++) {
         for(j=1; j < p->meret.x-1; j++) {
             if (test_born(p, i, j) == 3){
@@ -95,6 +111,7 @@ void round( palya *p, cells *q) {
     }
     felsz_cella(q);
     //system("cls");
+    /*
     for(i=0; i < p->meret.y; i++) {
         for (j=0; j < p->meret.x; j++) {
             printf("%d", p->palya[i][j] );
@@ -102,27 +119,35 @@ void round( palya *p, cells *q) {
         printf("\n");
     }
     printf("\n");
+    */
+    osszegint = osszeg(p);
+    //printf("\n --- db: %d --- \n", db(p));
     if(db(p) == 0) {
         printf("\n --- LEFUTOTT--- \n");
     } else {
         if (before == db(p)) {
             ism++;
-            printf("%d", ism);
-            if (ism > 10)
+            if (ism > 20)
                 printf("\n --- LEFUTOTT --- \n");
             else
-                round(p, q);
+                round(p, q, ism, osszegint);
         } else {
-            round(p, q);
+            //ism=0;
+            round(p, q, ism, osszegint);
         }
     }
 }
 
 void leptet( palya *p, cells *q) {
-    int i, j, n, before;
-    int ism=0;
-    char c;
+    int i, j, n, ism, before;
+    system("cls");
     before = db(p);
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            printf("%d", p->palya[i][j] );
+        }
+        printf("\n");
+    }
     sejtek(p, q);
     state(p, q);
     for(i=1; i < p->meret.y-1; i++) {
@@ -136,7 +161,7 @@ void leptet( palya *p, cells *q) {
         verdun(p, q, n);
     }
     felsz_cella(q);
-    //system("cls");
+    /*
     for(i=0; i < p->meret.y; i++) {
         for (j=0; j < p->meret.x; j++) {
             printf("%d", p->palya[i][j] );
@@ -144,25 +169,14 @@ void leptet( palya *p, cells *q) {
         printf("\n");
     }
     printf("\n");
+    */
     if(db(p) == 0) {
         printf("\n --- LEFUTOTT--- \n");
     } else {
         if (before == db(p)) {
             ism++;
-            //printf("\n%d\n", ism);
-            if (ism > 10) {
+            if (ism > 20)
                 printf("\n --- LEFUTOTT --- \n");
-            } else {
-                scanf("%c", &c);
-                    if (c != 0) {
-                        round(p, q);
-                    }
-            }
-        } else {
-            scanf("%c", &c);
-            if (c != 0) {
-                round(p, q);
-            }
         }
     }
 }
@@ -205,4 +219,15 @@ int test_born( palya *p, int i, int j) {
         }
     }
     return db;
+}
+
+int osszeg(palya *p) {
+    int i, j, osszeg=0;
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            if(p->palya[i][j] == 1)
+                osszeg = i + j;
+        }
+    }
+    return osszeg;
 }

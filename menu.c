@@ -3,7 +3,7 @@
 #include "header.h"
 
 void menu( palya *p, cells *q ) {
-    int i, j, d;
+    int i, j, d, ism, osszegint;
     menu_item r;
     koord jatekter;
     printf("--- MENU ---\n"
@@ -53,26 +53,41 @@ void menu( palya *p, cells *q ) {
         case start :
             printf("Automatikus lefutas: 0\nLeptetes: 1\n");
             scanf("%d\n", &d);
-            if (d == 0)
-                round(p, q);
-            else
-                leptet(p, q);
+            if (d == 1) {
+                printf("Barmelyik egesz szam es egy enter lenyomasara tudsz leptetni.\n");
+                printf("A 0 lenyomasaval tudsz kilepni a ciklusbol.\n");
+                ism = 0;
+                while (d != 0) {
+                    leptet(p, q);
+                    scanf("%d\n", &d);
+                }
+            } else {
+                ism= 0;
+                osszegint = 0;
+                round(p, q, ism, osszegint);
+            }
             for(i=0; i < p->meret.y; i++) {
                 for (j=0; j < p->meret.x; j++) {
                     printf("%d", p->palya[i][j] );
             }
             printf("\n");
-        }
-        printf("\n");
+            }
+            printf("\n");
+            printf("\n\n --- %d --- \n", ism);
             felsz(p);
+                break;
+        case kilepes :
+            printf("That's all folks!");
             break;
         }
-        printf("Hogyan tovabb?\n"
+        if (r != 4) {
+            printf("Hogyan tovabb?\n"
                    "0 - Jatekter meretenek megadasa\n"
                    "1 - Kezdo koordinatak megadasa\n"
                    "2 - Kezdo allapot betoltese fajlbol\n"
                    "3 - Szimulacio inditasa...\n"
                    "4 - Kilepes...\n");
-        scanf("%d", &r);
+            scanf("%d", &r);
+        }
     }
 }

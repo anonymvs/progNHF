@@ -2,6 +2,7 @@
 #define HEADER_H_INCLUDED
 
 extern int ism;
+extern int osszegint;
 
 // menüt vezérlõ enum
 typedef enum menu_item {
@@ -37,11 +38,12 @@ int test_death ( palya *p, cells *q, int i);
 int test_born ( palya *p, int i, int j);
 void felsz_cella(cells *p);
 void felsz(palya *p);
-void round( palya *p, cells *q);
+void round( palya *p, cells *q, int ism, int osszegint);
 void state ( palya *p, cells *q);
 void verdun (palya *p, cells *q, int n);
 int db (palya *p);
 void leptet(palya *p, cells *q);
+int osszeg(palya *p);
 
 
 void menu( palya *p, cells *q );
