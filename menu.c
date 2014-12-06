@@ -2,8 +2,8 @@
 #include <stdlib.h>
 #include "header.h"
 
-void menu( palya *p, cells *q ) {
-    int i, j, d, ism, osszegint;
+void menu( palya *p, cells *q) {
+    int i, j, d, ism, osszegint, kezdoallapot, db;
     menu_item r;
     koord jatekter;
     printf("--- MENU ---\n"
@@ -12,8 +12,8 @@ void menu( palya *p, cells *q ) {
                 "2 - Kezdo allapot betoltese fajlbol\n"
                 "3 - Szimulacio inditasa...\n"
                 "4 - Kilepes...\n");
-    scanf("%d", &r);
     while (r != kilepes ) {
+        scanf("%d", &r);
         switch (r) {
         case meret :
             printf("Mekkora legyen a jatekter?\n");
@@ -32,14 +32,22 @@ void menu( palya *p, cells *q ) {
             }
             break;
         case kezdo :
-            printf("A kezdo pontok elhelyezese:");
-            megad(p);
-            printf("Kezdoallapot:\n");
-            for(i=0; i < p->meret.y; i++) {
-                for (j=0; j < p->meret.x; j++) {
-                    printf("%d", p->palya[i][j] );
+            printf("A kezdo pontok elhelyezese:\n");
+            printf("Random kezdoallapot: 0\nMechanikus megadasa a kezdoallapotnak: 1\n");
+            scanf("%d", &kezdoallapot);
+            if (kezdoallapot == 0) {
+                printf("Hany darab sejt legyen a palyan?\n");
+                scanf("%d", &db);
+                randomkoord(p, db);
+            } else {
+                megad(p);
+                printf("Kezdoallapot:\n");
+                for(i=0; i < p->meret.y; i++) {
+                    for (j=0; j < p->meret.x; j++) {
+                        printf("%d", p->palya[i][j] );
+                    }
+                    printf("\n");
                 }
-                printf("\n");
             }
             sejtek(p, q);
             for (i=0; i<q->meret; i++) {
@@ -52,14 +60,14 @@ void menu( palya *p, cells *q ) {
             break;
         case start :
             printf("Automatikus lefutas: 0\nLeptetes: 1\n");
-            scanf("%d\n", &d);
+            scanf("%d", &d);
             if (d == 1) {
                 printf("Barmelyik egesz szam es egy enter lenyomasara tudsz leptetni.\n");
                 printf("A 0 lenyomasaval tudsz kilepni a ciklusbol.\n");
                 ism = 0;
                 while (d != 0) {
                     leptet(p, q);
-                    scanf("%d\n", &d);
+                    scanf("%d", &d);
                 }
             } else {
                 ism= 0;
@@ -74,6 +82,7 @@ void menu( palya *p, cells *q ) {
             }
             printf("\n");
             printf("\n\n --- %d --- \n", ism);
+            //printf("\n\n --- %d --- \n", korszamlalo);
             felsz(p);
                 break;
         case kilepes :
@@ -87,7 +96,6 @@ void menu( palya *p, cells *q ) {
                    "2 - Kezdo allapot betoltese fajlbol\n"
                    "3 - Szimulacio inditasa...\n"
                    "4 - Kilepes...\n");
-            scanf("%d", &r);
         }
     }
 }

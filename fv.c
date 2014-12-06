@@ -88,8 +88,8 @@ void round( palya *p, cells *q, int ism, int osszegint) {
             }
             printf("\n");
         }
+        printf("\n");
     }
-    printf("\n");
     sejtek(p, q);
     state(p, q);
     /*
@@ -120,13 +120,13 @@ void round( palya *p, cells *q, int ism, int osszegint) {
     }
     printf("\n");
     */
-    osszegint = osszeg(p);
     //printf("\n --- db: %d --- \n", db(p));
     if(db(p) == 0) {
         printf("\n --- LEFUTOTT--- \n");
     } else {
         if (before == db(p)) {
             ism++;
+            osszegint = osszeg(p);
             if (ism > 20)
                 printf("\n --- LEFUTOTT --- \n");
             else
@@ -230,4 +230,24 @@ int osszeg(palya *p) {
         }
     }
     return osszeg;
+}
+
+void randomkoord(palya *p, int top) {
+    int t, x, y, max=0, n=0, i, j;
+    srand((int) time(&t));
+    //max = (p->meret.x * p->meret.y)/2;
+    while ( db(p) != top) {
+        x = rand() % (p->meret.x-2);
+        y = rand() % (p->meret.y-2);
+        p->palya[y+1][x+1] = 1;
+    }
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            printf("%d", p->palya[i][j] );
+        }
+        printf("\n");
+    }
+    printf("\n");
+
+    printf("\n--- KOORDINATAK BEALLITVA ---\n");
 }

@@ -3,6 +3,7 @@
 
 extern int ism;
 extern int osszegint;
+extern int korszamlalo;
 
 // menüt vezérlõ enum
 typedef enum menu_item {
@@ -44,6 +45,7 @@ void verdun (palya *p, cells *q, int n);
 int db (palya *p);
 void leptet(palya *p, cells *q);
 int osszeg(palya *p);
+void randomkoord(palya *p, int top);
 
 
 void menu( palya *p, cells *q );
