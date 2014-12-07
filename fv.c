@@ -2,29 +2,11 @@
 #include <stdlib.h>
 #include "header.h"
 
-void nullaz ( palya *p ) {
-    int n, m;
-    for (n=0; n < p->meret.y; n++) {
-        for (m=0; m < p->meret.x; m++) {
-            p->palya[n][m] = 0;
-        }
-    }
-}
-
-// lefoglalja a pálya területét, és visszatér egy pointerrel
-void foglal ( palya *p) {
-    int **uj, i;
-    uj = (int**) malloc(p->meret.y * sizeof(int*));
-    for (i=0; i < p->meret.y; i++) {
-        uj[i] = (int*) malloc(p->meret.x * sizeof(int));
-    }
-    p->palya = uj;
-};
 
 //felhasználótól fogad koordinátákat
 void megad (palya *p) {
     int x, y;
-    printf("Irja be a kivant koordinatakat enterekkel elvalasztva.\n Megszakitas a (0;0) koordinataval\n");
+    printf("\nIrja be a kivant koordinatakat enterekkel elvalasztva.\nMegszakitas a (0;0) koordinataval\n");
     while(x != 0 ) {
         printf("x, y:\n");
         scanf("%d\n%d", &x, &y);
@@ -79,8 +61,9 @@ void state ( palya *p, cells *q) {
 }
 
 void round( palya *p, cells *q, int ism, int osszegint) {
-    int i, j, n, before, k;
+    int i, j, n, before, k, time;
     before = db(p);
+    system("cls");
     if (osszeg(p) != osszegint) {
         for(i=0; i < p->meret.y; i++) {
             for (j=0; j < p->meret.x; j++) {
@@ -112,22 +95,26 @@ void round( palya *p, cells *q, int ism, int osszegint) {
     felsz_cella(q);
     //system("cls");
     /*
-    for(i=0; i < p->meret.y; i++) {
-        for (j=0; j < p->meret.x; j++) {
-            printf("%d", p->palya[i][j] );
+    if (osszeg(p) != osszegint) {
+        for(i=0; i < p->meret.y; i++) {
+            for (j=0; j < p->meret.x; j++) {
+                printf(" ");
+            }
+            printf("\n");
         }
         printf("\n");
     }
-    printf("\n");
     */
     //printf("\n --- db: %d --- \n", db(p));
+    if (osszeg(p) != osszegint)
+        for (time=0; time<50000000; time++);
     if(db(p) == 0) {
         printf("\n --- LEFUTOTT--- \n");
     } else {
         if (before == db(p)) {
             ism++;
             osszegint = osszeg(p);
-            if (ism > 20)
+            if (ism > 100)
                 printf("\n --- LEFUTOTT --- \n");
             else
                 round(p, q, ism, osszegint);
@@ -250,4 +237,105 @@ void randomkoord(palya *p, int top) {
     printf("\n");
 
     printf("\n--- KOORDINATAK BEALLITVA ---\n");
+}
+
+void fajlbair(palya *p, cells *q) {
+    int i, j;
+    FILE *f1test, *f2koord;
+    f1test = fopen("lementett.txt", "wt");
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            fprintf(f1test, "%d ", p->palya[i][j]);
+        }
+        fprintf(f1test, "\n");
+    }
+    f2koord = fopen("lementettkoord.txt", "wt");
+    for (i=0; i<q->meret; i++) {
+        fprintf(f2koord, "%d %d\n", q->pointer[i].x, q->pointer[i].y);
+    }
+    fclose(f1test);
+    fclose(f2koord);
+}
+
+void fajlbeolv10x10 (palya *p) {
+    int i, j, d, meret=15;
+    FILE *f1test;
+    koord lista[15];
+    f1test = fopen("koord10x10.txt", "rt");
+    for(i=0; i<15; i++) {
+        fscanf(f1test, "%d %d\n", &lista[i].x, &lista[i].y );
+    }
+    /*
+    for (i=0; i<15; i++) {
+        printf("(%d;%d)\n", lista[i].x, lista[i].y);
+    }
+    */
+    system("cls");
+    koordbeir(p, &lista, meret);
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            printf("%d", p->palya[i][j] );
+        }
+        printf("\n");
+    }
+    printf("\n");
+    fclose(f1test);
+}
+
+void fajlbeolv20x20 (palya *p) {
+    int i, j, d, meret=30;
+    FILE *f1test;
+    koord lista[30];
+    f1test = fopen("koord20x20.txt", "rt");
+    for(i=0; i<30; i++) {
+        fscanf(f1test, "%d %d\n", &lista[i].x, &lista[i].y );
+    }
+    /*
+    for (i=0; i<30; i++) {
+        printf("(%d;%d)\n", lista[i].x, lista[i].y);
+    }
+    */
+    system("cls");
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            printf("%d", p->palya[i][j] );
+        }
+        printf("\n");
+    }
+    printf("\n");
+    koordbeir(p, &lista, meret);
+    fclose(f1test);
+}
+
+void fajlbeolv60x15 (palya *p) {
+    int i, j, d, meret=120;
+    FILE *f1test;
+    koord lista[120];
+    f1test = fopen("koord60x15.txt", "rt");
+    for(i=0; i<120; i++) {
+        fscanf(f1test, "%d %d\n", &lista[i].x, &lista[i].y );
+    }
+    /*
+    for (i=0; i<120; i++) {
+        printf("(%d;%d)\n", lista[i].x, lista[i].y);
+    }
+    */
+    system("cls");
+    koordbeir(p, &lista, meret);
+    for(i=0; i < p->meret.y; i++) {
+        for (j=0; j < p->meret.x; j++) {
+            printf("%d", p->palya[i][j] );
+        }
+        printf("\n");
+    }
+    printf("\n");
+    fclose(f1test);
+}
+
+void koordbeir(palya *p, koord *q, int meret) {
+    int n;
+    for(n=0; n<meret; n++) {
+        p->palya[q[n].y][q[n].x] = 1;
+    }
+
 }

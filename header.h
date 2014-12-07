@@ -14,6 +14,13 @@ typedef enum menu_item {
     kilepes
 } menu_item;
 
+typedef enum menu_betolt {
+    elso,
+    masodik,
+    harmadik,
+    menube
+} menu_betolt;
+
 // elemek koordinátái
 typedef struct koord {
     int x, y, state;
@@ -46,6 +53,11 @@ int db (palya *p);
 void leptet(palya *p, cells *q);
 int osszeg(palya *p);
 void randomkoord(palya *p, int top);
+void koordbeir(palya*p, koord *q, int meret);
+void fajlbair(palya *p, cells *q);
+void fajlbeolv10x10(palya *p);
+void fajlbeolv20x20 (palya *p);
+void fajlbeolv60x15 (palya *p);
 
 
 void menu( palya *p, cells *q );
