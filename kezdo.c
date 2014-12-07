@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "header.h"
 
+//A felhasználó itt adja meg egyesével a kívánt sejtek koordinátáit, majd ezek a sejtek beleíródnak a pályába.
 void megad (palya *p) {
     int x, y;
     printf("\nIrja be a kivant koordinatakat enterekkel elvalasztva.\nMegszakitas a (0;0) koordinataval\n");
@@ -21,6 +22,7 @@ void megad (palya *p) {
     }
 }
 
+// A pályáról kilistázza a sejtek koordinátáit.
 void sejtek ( palya *p, cells *q) {
     int i, j, k=0, n=0;
     koord *uj;
@@ -49,6 +51,7 @@ void sejtek ( palya *p, cells *q) {
     //}
 }
 
+// A felhasználó által megadott mennyiságû random elhelyzett sejttel tölti fel a pályát.
 void randomkoord(palya *p, int top) {
     int t, x, y, max=0, n=0, i, j;
     srand((int) time(&t));

@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "header.h"
 
+// Kinullázza a pályát amit korábban lefoglaltam.
 void nullaz ( palya *p ) {
     int n, m;
     for (n=0; n < p->meret.y; n++) {

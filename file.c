@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "header.h"
 
-
+// Bementi az aktuális kezdõállapotot egy .txt-be és utána lementi egy másik .txt-be a sejtek koordinátáit.
 void fajlbair(palya *p, cells *q) {
     int i, j;
     FILE *f1test, *f2koord;
@@ -21,6 +21,7 @@ void fajlbair(palya *p, cells *q) {
     fclose(f2koord);
 }
 
+// Beolvas egy 10x10-es alapterületû alaphelyzetet.
 void fajlbeolv10x10 (palya *p) {
     int i, j, d, meret=15;
     FILE *f1test;
@@ -46,6 +47,7 @@ void fajlbeolv10x10 (palya *p) {
     fclose(f1test);
 }
 
+// Beolvas egy 20x20-as alapterületû alaphelyzetet.
 void fajlbeolv20x20 (palya *p) {
     int i, j, d, meret=30;
     FILE *f1test;
@@ -71,6 +73,7 @@ void fajlbeolv20x20 (palya *p) {
     fclose(f1test);
 }
 
+// Beolvas egy 60x15-ös alapterületû alaphelyzetet.
 void fajlbeolv60x15 (palya *p) {
     int i, j, d, meret=120;
     FILE *f1test;

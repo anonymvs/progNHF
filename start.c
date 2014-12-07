@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "header.h"
 
+// Beír a state változóba egy 1-est azoknak a sejteknek amiknek majd meg kell halniuk.
 void state ( palya *p, cells *q) {
     int i;
     for(i=0; i<q->meret; i++) {
@@ -11,6 +12,7 @@ void state ( palya *p, cells *q) {
     }
 }
 
+//A szimuláció motorját képezõ algoritmus.
 void round( palya *p, cells *q, int ism, int osszegint, int szorzatint) {
     int i, j, n, before, k, time;
     before = db(p);
@@ -65,7 +67,7 @@ void round( palya *p, cells *q, int ism, int osszegint, int szorzatint) {
             ism++;
             osszegint = osszeg(p);
             szorzatint = szorzat(p);
-            if (ism > 100)
+            if (ism > 40)
                 printf("\n --- LEFUTOTT --- \n");
             else
                 round(p, q, ism, osszegint, szorzatint);
@@ -76,6 +78,7 @@ void round( palya *p, cells *q, int ism, int osszegint, int szorzatint) {
     }
 }
 
+//A szimuláció motorját képzõ algoritmus, rekurzió nélkül.
 void leptet( palya *p, cells *q) {
     int i, j, n, ism, before;
     system("cls");
@@ -119,6 +122,7 @@ void leptet( palya *p, cells *q) {
     }
 }
 
+//Megszámolja hány darab egyes van a pályán.
 int db (palya *p) {
     int i, j, db=0;
     for(i=0; i < p->meret.y; i++) {
@@ -130,11 +134,13 @@ int db (palya *p) {
     return db;
 }
 
+//Megöli a sejteket amik meg vannak jelölve.
 void verdun (palya *p, cells *q, int n) {
     if (q->pointer[n].state == 1)
         p->palya[q->pointer[n].y][q->pointer[n].x] = 0;
 }
 
+//Megnézi, hogy egy sejtnek hány szomszédja van a listából.
 int test_death ( palya *p, cells *q, int i) {
     int j, k, db=0;
     for(j= -1; j<=1; j++) {
@@ -146,6 +152,7 @@ int test_death ( palya *p, cells *q, int i) {
     return (db-1);
 }
 
+//Megnézi, hogy egy pontnak a pályán hány szomszédja van.
 int test_born( palya *p, int i, int j) {
     int db=0, a, b;
     if ( p->palya[i][j] == 0 ) {
@@ -159,6 +166,7 @@ int test_born( palya *p, int i, int j) {
     return db;
 }
 
+//Összeadja a pályán található sejtek koordinátáit.
 int osszeg(palya *p) {
     int i, j, osszeg=0;
     for(i=0; i < p->meret.y; i++) {
@@ -170,6 +178,7 @@ int osszeg(palya *p) {
     return osszeg;
 }
 
+//Összeszorozza a pályán található sejtek koordinátáit.
 int szorzat(palya *p) {
         int i, j, szorzat=0;
     for(i=0; i < p->meret.y; i++) {

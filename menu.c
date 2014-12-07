@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "header.h"
 
+// A menut kezelõ függvény.
 void menu( palya *p, cells *q) {
     int i, j, d, ism, osszegint, szorzatint, kezdoallapot, db;
     menu_item r;
@@ -19,6 +20,7 @@ void menu( palya *p, cells *q) {
     while (r != kilepes ) {
         scanf("%d", &r);
         switch (r) {
+        // A pálya méretét ebben a menüpontban lehet beállítani.
         case meret :
             printf("\nMekkora legyen a jatekter?\n");
             scanf("%d\n%d", &jatekter.x, &jatekter.y);
@@ -36,6 +38,7 @@ void menu( palya *p, cells *q) {
             }
             printf("--- jatekter lefoglalva es nullazva --- \n\n");
             break;
+        // A kezdõ koordinátákat ebben a menüpontban lehet megadni.
         case kezdo :
             printf("\nA kezdo pontok elhelyezese:\n");
             printf("0 - Gep altal random elhelyezett kezdopontok.\n"
@@ -62,6 +65,7 @@ void menu( palya *p, cells *q) {
             }
             fajlbair(p, q);
             break;
+        // Ebben a menüpontban fájlból lehet beolvasni kezdõállapotot.
         case betolt:
             printf("\nA keszito altal elore megadott alapallapot betoltese.\n");
             printf("Valaszthat 3 kulonbozo meretu alapallapotbol.\n"
@@ -100,6 +104,7 @@ void menu( palya *p, cells *q) {
                 break;
             }
         break;
+        // Szimuláció indítása
         case start :
             printf("Szimulacio inditasa:\n");
             printf("0 - A szimulacio automatikus futtatasahoz.\n"
@@ -130,6 +135,7 @@ void menu( palya *p, cells *q) {
             //printf("\n\n --- %d --- \n", korszamlalo);
             felsz(p);
                 break;
+        // Ebben a menüpontban lehet kilépni a menübõl.
         case kilepes :
             printf("That's all folks!");
             break;

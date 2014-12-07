@@ -15,6 +15,7 @@ typedef enum menu_item {
     kilepes
 } menu_item;
 
+// Egy almenüt vezérlő enum
 typedef enum menu_betolt {
     elso,
     masodik,
@@ -33,6 +34,7 @@ typedef struct palya {
     int **palya;
 } palya;
 
+// A pályán levő sejtek koordinátáit tárolja egy listában.
 typedef struct cells {
     int meret;
     koord *pointer;

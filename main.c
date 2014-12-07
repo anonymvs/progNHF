@@ -17,7 +17,8 @@ int main()
         printf("\n");
     }
     */
-    felsz(&eletter);
+
     printf("Felszabaditva");
+    felsz(&eletter);
     return 0;
 }
