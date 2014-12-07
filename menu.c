@@ -3,7 +3,7 @@
 #include "header.h"
 
 void menu( palya *p, cells *q) {
-    int i, j, d, ism, osszegint, kezdoallapot, db;
+    int i, j, d, ism, osszegint, szorzatint, kezdoallapot, db;
     menu_item r;
     menu_betolt h;
     koord jatekter;
@@ -116,7 +116,8 @@ void menu( palya *p, cells *q) {
             } else {
                 ism= 0;
                 osszegint = 0;
-                round(p, q, ism, osszegint);
+                szorzatint = 0;
+                round(p, q, ism, osszegint, szorzatint);
             }
             for(i=0; i < p->meret.y; i++) {
                 for (j=0; j < p->meret.x; j++) {

@@ -13,14 +13,34 @@
 	<stdlib.h>
 	"header.h"
 
-1417978325 c:\users\dani\documents\github\prognhf\header.h
+1417980837 c:\users\dani\documents\github\prognhf\header.h
 
-1417979731 source:c:\users\dani\documents\github\prognhf\menu.c
+1417980816 source:c:\users\dani\documents\github\prognhf\menu.c
 	<stdio.h>
 	<stdlib.h>
 	"header.h"
 
 1417450498 source:c:\users\dani\documents\github\prognhf\free.c
+	<stdio.h>
+	<stdlib.h>
+	"header.h"
+
+1417980211 source:c:\users\dani\documents\github\prognhf\foglal.c
+	<stdio.h>
+	<stdlib.h>
+	"header.h"
+
+1417980423 source:c:\users\dani\documents\github\prognhf\file.c
+	<stdio.h>
+	<stdlib.h>
+	"header.h"
+
+1417980380 source:c:\users\dani\documents\github\prognhf\kezdo.c
+	<stdio.h>
+	<stdlib.h>
+	"header.h"
+
+1417980979 source:c:\users\dani\documents\github\prognhf\start.c
 	<stdio.h>
 	<stdlib.h>
 	"header.h"

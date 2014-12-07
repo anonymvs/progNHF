@@ -3,6 +3,7 @@
 
 extern int ism;
 extern int osszegint;
+extern int szorzatint;
 extern int korszamlalo;
 
 // menüt vezérlõ enum
@@ -46,12 +47,13 @@ int test_death ( palya *p, cells *q, int i);
 int test_born ( palya *p, int i, int j);
 void felsz_cella(cells *p);
 void felsz(palya *p);
-void round( palya *p, cells *q, int ism, int osszegint);
+void round( palya *p, cells *q, int ism, int osszegint, int szorzatint);
 void state ( palya *p, cells *q);
 void verdun (palya *p, cells *q, int n);
 int db (palya *p);
 void leptet(palya *p, cells *q);
 int osszeg(palya *p);
+int szorzat(palya *p);
 void randomkoord(palya *p, int top);
 void koordbeir(palya*p, koord *q, int meret);
 void fajlbair(palya *p, cells *q);
